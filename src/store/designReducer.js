@@ -25,9 +25,7 @@ export function designReducer(state, action) {
       const isPrintingPhoto = action.payload;
       return { 
         ...state, 
-        isPrintingPhoto,
-        photo: isPrintingPhoto ? state.photo : null,
-        photoPreviewUrl: isPrintingPhoto ? state.photoPreviewUrl : null
+        isPrintingPhoto
       };
     }
     case 'SET_PHOTO':
@@ -57,6 +55,8 @@ export function designReducer(state, action) {
       return { ...state, overlay: { ...state.overlay, fontStyle: action.payload } };
     case 'SET_OVERLAY_FONT_SIZE':
       return { ...state, overlay: { ...state.overlay, fontSize: action.payload } };
+    case 'LOAD_DRAFT':
+      return { ...state, ...action.payload };
     case 'RESET_DESIGN':
       return initialState;
     default:

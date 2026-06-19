@@ -15,6 +15,7 @@
     "autoprefixer": "^10.5.0",
     "clsx": "^2.1.1",
     "html2canvas": "^1.4.1",
+    "localforage": "^1.10.0",
     "lucide-react": "^1.20.0",
     "mind-ar": "^1.2.5",
     "postcss": "^8.5.15",

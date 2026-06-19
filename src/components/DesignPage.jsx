@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, ChevronUp, ChevronDown } from 'lucide-react';
 import LeftColumnPreview from './LeftColumnPreview';
@@ -7,19 +7,34 @@ import Step2FrameSize from './Step2FrameSize';
 import Step3ARSelection from './Step3ARSelection';
 import Step4AREditor from './Step4AREditor';
 import Step5Summary from './Step5Summary';
-import CheckoutModal from './CheckoutModal';
 import { useDesign, useDesignDispatch } from '../store/DesignContext';
 import { useCartDispatch } from '../store/CartContext';
+import { loadDraft, clearDraft } from '../store/draftService';
 
 export default function DesignPage() {
   const navigate = useNavigate();
   const [isPreviewCollapsed, setIsPreviewCollapsed] = useState(false);
-  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [draftExists, setDraftExists] = useState(null);
   const { selectedAREffect, photoPreviewUrl, overlay, frameSize, pricing, photo } = useDesign();
   const designDispatch = useDesignDispatch();
   const cartDispatch = useCartDispatch();
 
-  const handleAddToCart = () => {
+  useEffect(() => {
+    loadDraft().then(draft => {
+      if (draft) {
+        setDraftExists(draft);
+      }
+    });
+  }, []);
+
+  const restoreDraft = () => {
+    if (draftExists) {
+      designDispatch({ type: 'LOAD_DRAFT', payload: draftExists });
+      setDraftExists(null);
+    }
+  };
+
+  const handleAddToCart = async () => {
     if (!photoPreviewUrl) {
       alert("Vui lòng tải ảnh lên trước!");
       return;
@@ -35,6 +50,7 @@ export default function DesignPage() {
     };
     cartDispatch({ type: 'ADD_ITEM', payload: newItem });
     designDispatch({ type: 'RESET_DESIGN' });
+    await clearDraft();
     cartDispatch({ type: 'SET_CART_OPEN', payload: true });
   };
 
@@ -88,6 +104,16 @@ export default function DesignPage() {
             <p className="text-gray-500">Tùy chỉnh khung ảnh gỗ và lưu giữ kỷ niệm của bạn.</p>
           </div>
           
+          {draftExists && (
+            <div className="bg-blue-50 border border-blue-200 p-4 rounded-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 animate-in fade-in slide-in-from-top-4">
+              <span className="text-sm text-blue-800 font-medium">Bạn có một bản thiết kế đang làm dở.</span>
+              <div className="flex gap-2 w-full md:w-auto">
+                <button onClick={() => { setDraftExists(null); clearDraft(); }} className="flex-1 md:flex-none text-sm text-blue-600 px-4 py-2 hover:bg-blue-100 rounded-lg font-medium transition-colors">Làm mới</button>
+                <button onClick={restoreDraft} className="flex-1 md:flex-none text-sm bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors shadow-sm">Tiếp tục</button>
+              </div>
+            </div>
+          )}
+
           <Step1Upload />
           <Step2FrameSize />
           <Step3ARSelection />
