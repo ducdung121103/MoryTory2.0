@@ -8,6 +8,7 @@ import DesignPage from './components/DesignPage';
 import ARRoute from './components/ARRoute';
 import OrderStatusPage from './components/OrderStatusPage';
 import ProfilePage from './components/ProfilePage';
+import OrderPreview from './components/OrderPreview';
 import CartIcon from './components/CartIcon';
 import CartModal from './components/CartModal';
 
@@ -25,6 +26,7 @@ function App() {
               <Route path="/ar" element={<ARRoute />} />
               <Route path="/order-status" element={<OrderStatusPage />} />
               <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/don-hang" element={<OrderPreview />} />
             </Routes>
           </DesignProvider>
         </CartProvider>

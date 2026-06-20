@@ -188,6 +188,14 @@ export default function CheckoutModal({ isOpen, onClose, cartItems }) {
                   <p className="text-[10px] text-ink-muted mt-2 text-center">
                     QR này sẽ được in sau khung
                   </p>
+                  <a
+                    href={`/don-hang?orderId=${order.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-3 text-xs bg-walnut/10 hover:bg-walnut/20 text-walnut px-4 py-2 rounded-xl font-medium transition-colors w-full text-center block"
+                  >
+                    Xem lại ảnh
+                  </a>
                 </div>
               ))}
             </div>
