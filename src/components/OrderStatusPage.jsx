@@ -87,22 +87,32 @@ export default function OrderStatusPage() {
             ) : (
               <div className="grid gap-4">
                 {myOrders.map(order => (
-                  <div key={order.orderId} className="bg-card border border-line rounded-2xl p-4 flex items-center gap-4 hover:shadow-[var(--shadow-soft)] transition-shadow">
-                    <div className="w-16 h-16 bg-cream-deep rounded-lg flex items-center justify-center shrink-0">
-                      <ScanLine className="h-6 w-6 text-walnut" />
+                  <div key={order.orderId} className="bg-card border border-line rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center gap-4 hover:shadow-[var(--shadow-soft)] transition-shadow">
+                    <div className="flex items-center gap-4 flex-1 min-w-0">
+                      <div className="w-16 h-16 bg-cream-deep rounded-lg flex items-center justify-center shrink-0">
+                        <ScanLine className="h-6 w-6 text-walnut" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-semibold text-ink">Mã: #{order.orderId}</p>
+                        <p className="text-xs text-ink-muted">
+                          Hiệu ứng: {order.effect || 'Không'} · {new Date(order.createdAt).toLocaleDateString('vi-VN')}
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-ink">Mã: #{order.orderId}</p>
-                      <p className="text-xs text-ink-muted">
-                        Hiệu ứng: {order.effect || 'Không'} · {new Date(order.createdAt).toLocaleDateString('vi-VN')}
-                      </p>
+                    <div className="flex gap-2 w-full sm:w-auto shrink-0 justify-end">
+                      <button
+                        onClick={() => navigate(`/don-hang?orderId=${order.orderId}`)}
+                        className="px-4 py-2 border border-line text-ink text-sm font-medium rounded-full hover:bg-cream-deep transition-all"
+                      >
+                        Xem ảnh thiết kế
+                      </button>
+                      <button
+                        onClick={() => navigate(`/ar?orderId=${order.orderId}`)}
+                        className="px-4 py-2 bg-sage-deep text-white text-sm font-medium rounded-full hover:brightness-110 transition-all"
+                      >
+                        Xem AR
+                      </button>
                     </div>
-                    <button
-                      onClick={() => navigate(`/ar?orderId=${order.orderId}`)}
-                      className="px-4 py-2 bg-sage-deep text-white text-sm font-medium rounded-full hover:brightness-110 transition-all shrink-0"
-                    >
-                      Xem AR
-                    </button>
                   </div>
                 ))}
               </div>
@@ -144,7 +154,7 @@ export default function OrderStatusPage() {
 
           {lookupResult && (
             <div className="mt-4 bg-card border border-line rounded-2xl p-6">
-              <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center gap-3 mb-6">
                 <div className="h-12 w-12 bg-sage/20 rounded-full flex items-center justify-center text-sage-deep">
                   <Package className="h-6 w-6" />
                 </div>
@@ -155,13 +165,21 @@ export default function OrderStatusPage() {
                   </p>
                 </div>
               </div>
-              <button
-                onClick={() => navigate(`/ar?orderId=${lookupResult.orderId}`)}
-                className="w-full mt-2 px-6 py-3 bg-walnut text-cream font-medium rounded-xl hover:bg-walnut-deep transition-colors flex items-center justify-center gap-2"
-              >
-                <ScanLine className="h-5 w-5" />
-                Xem trải nghiệm AR
-              </button>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <button
+                  onClick={() => navigate(`/don-hang?orderId=${lookupResult.orderId}`)}
+                  className="flex-1 px-6 py-3 border border-line text-ink font-medium rounded-xl hover:bg-cream-deep transition-colors flex items-center justify-center gap-2"
+                >
+                  Xem ảnh thiết kế
+                </button>
+                <button
+                  onClick={() => navigate(`/ar?orderId=${lookupResult.orderId}`)}
+                  className="flex-1 px-6 py-3 bg-walnut text-cream font-medium rounded-xl hover:bg-walnut-deep transition-colors flex items-center justify-center gap-2"
+                >
+                  <ScanLine className="h-5 w-5" />
+                  Xem trải nghiệm AR
+                </button>
+              </div>
             </div>
           )}
         </section>
