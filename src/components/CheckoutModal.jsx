@@ -27,27 +27,7 @@ export default function CheckoutModal({ isOpen, onClose, cartItems }) {
 
   if (!isOpen) return null;
 
-  if (!user) {
-    return (
-      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[70] flex items-center justify-center p-4">
-        <div className="bg-card rounded-2xl shadow-[var(--shadow-warm)] w-full max-w-md overflow-hidden relative p-8 flex flex-col items-center border border-line animate-in fade-in zoom-in-95 duration-200">
-          <button onClick={onClose} className="absolute top-4 right-4 p-2 text-ink-muted hover:text-ink rounded-full hover:bg-cream-deep transition-colors">
-            <X className="w-5 h-5" />
-          </button>
-          <div className="w-16 h-16 bg-walnut/10 rounded-full flex items-center justify-center mb-4 text-walnut">
-            <Leaf className="w-8 h-8" />
-          </div>
-          <h2 className="text-2xl font-serif font-bold text-ink mb-2 text-center">Đăng ký tài khoản</h2>
-          <p className="text-ink-muted mb-6 text-center text-sm leading-relaxed">
-            Vui lòng đăng ký hoặc đăng nhập tài khoản bằng Google để tiếp tục thanh toán và lưu trữ lịch sử đơn hàng của bạn.
-          </p>
-          <div className="w-full flex justify-center">
-            <GoogleLoginButton />
-          </div>
-        </div>
-      </div>
-    );
-  }
+
 
   const handleCheckout = async (e) => {
     e.preventDefault();

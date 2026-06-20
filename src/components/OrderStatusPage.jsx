@@ -104,7 +104,7 @@ export default function OrderStatusPage() {
                         onClick={() => navigate(`/don-hang?orderId=${order.orderId}`)}
                         className="px-4 py-2 border border-line text-ink text-sm font-medium rounded-full hover:bg-cream-deep transition-all"
                       >
-                        Xem ảnh thiết kế
+                        Xem hình ảnh
                       </button>
                       <button
                         onClick={() => navigate(`/ar?orderId=${order.orderId}`)}
@@ -170,7 +170,7 @@ export default function OrderStatusPage() {
                   onClick={() => navigate(`/don-hang?orderId=${lookupResult.orderId}`)}
                   className="flex-1 px-6 py-3 border border-line text-ink font-medium rounded-xl hover:bg-cream-deep transition-colors flex items-center justify-center gap-2"
                 >
-                  Xem ảnh thiết kế
+                  Xem hình ảnh
                 </button>
                 <button
                   onClick={() => navigate(`/ar?orderId=${lookupResult.orderId}`)}
