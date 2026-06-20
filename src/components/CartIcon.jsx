@@ -11,10 +11,10 @@ export default function CartIcon() {
   return (
     <button
       onClick={() => dispatch({ type: 'TOGGLE_CART' })}
-      className="fixed top-6 right-6 md:top-6 md:right-12 bg-white text-brand-wood p-3 rounded-full shadow-lg hover:shadow-xl transition-all z-50 flex items-center justify-center group"
+      className="fixed bottom-6 right-6 md:bottom-8 md:right-8 bg-card text-walnut p-3.5 rounded-full shadow-[var(--shadow-warm)] hover:shadow-lg transition-all z-50 flex items-center justify-center group border border-line relative shrink-0 active:scale-95"
     >
       <ShoppingCart className="w-6 h-6 group-hover:scale-110 transition-transform" />
-      <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-6 h-6 flex items-center justify-center rounded-full shadow-sm">
+      <span className="absolute -top-2 -right-2 bg-sun text-ink text-xs font-bold w-6 h-6 flex items-center justify-center rounded-full shadow-sm animate-breathe">
         {items.length}
       </span>
     </button>

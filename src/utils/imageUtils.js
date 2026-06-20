@@ -1,5 +1,5 @@
 export function resizeImageForAR(dataUrl, maxDimension = 800) {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     const img = new Image();
     img.onload = () => {
       let width = img.width;
@@ -22,6 +22,10 @@ export function resizeImageForAR(dataUrl, maxDimension = 800) {
       ctx.drawImage(img, 0, 0, width, height);
       resolve(canvas.toDataURL('image/jpeg', 0.8));
     };
+    img.onerror = (err) => {
+      reject(err || new Error("Failed to load target image for AR compression"));
+    };
     img.src = dataUrl;
   });
 }
+

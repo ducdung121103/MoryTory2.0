@@ -1,73 +1,101 @@
-# React + TypeScript + Vite
+# MoryTory 2.0 — Khung ảnh gỗ thủ công, sống lại bằng AR
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**MoryTory 2.0** là nền tảng thiết kế khung ảnh gỗ thủ công tích hợp công nghệ **AR (Thực tế tăng cường)**. Người dùng có thể tải ảnh lên, chọn kích thước khung, chọn hiệu ứng AR (tuyết rơi, hoa anh đào, lấp lánh), viết lời nhắn và đặt hàng. Khi nhận khung, chỉ cần quét mã QR bằng điện thoại để xem kỷ niệm sống động.
 
-Currently, two official plugins are available:
+## 🎨 Thiết kế
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Dự án sử dụng hệ màu ấm áp, thủ công lấy cảm hứng từ gỗ tự nhiên:
 
-## React Compiler
+| Màu | Mã Hex | Vai trò |
+|------|--------|---------|
+| Cream | `#FDFBF7` | Nền chính |
+| Walnut | `#8B6914` | Màu chủ đạo (gỗ) |
+| Sage | `#9CAF88` | Màu nhấn (thiên nhiên) |
+| Sun | `#F5C542` | Điểm nhấn (ấm áp) |
+| Ink | `#2D2A26` | Văn bản chính |
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Fonts: **Playfair Display** (serif), **Dancing Script** (script), **Inter** (sans-serif).
 
-## Expanding the ESLint configuration
+## 🚀 Công nghệ
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **React 19** + **TypeScript** — UI framework
+- **Vite** — Build tool
+- **Tailwind CSS** — Styling
+- **React Router** — Điều hướng SPA
+- **A-Frame** + **MindAR** — AR trên web
+- **Lucide React** — Icon
+- **QRCode.react** — Mã QR
+- **Cloudflare Functions** — Backend API
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 📁 Cấu trúc dự án
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+MoryTory2.0/
+├── index.html              # Entry HTML với meta tags & fonts
+├── package.json            # Dependencies & scripts
+├── vite.config.ts          # Vite config với SSL
+├── tailwind.config.js      # Hệ màu thiết kế
+├── src/
+│   ├── main.jsx            # React entry point
+│   ├── App.jsx             # Router + providers
+│   ├── index.css           # Global styles + animations
+│   ├── assets/             # Ảnh (family-hero, moments, frame-hands...)
+│   ├── components/
+│   │   ├── HomePage.jsx    # Landing page đầy đủ (hero, steps, reviews, CTA)
+│   │   ├── DesignPage.jsx  # Trang thiết kế khung ảnh
+│   │   ├── LeftColumnPreview.jsx  # Xem trước khung
+│   │   ├── Step1Upload.jsx        # Tải ảnh lên
+│   │   ├── Step2FrameSize.jsx     # Chọn kích thước
+│   │   ├── Step3ARSelection.jsx   # Chọn hiệu ứng AR
+│   │   ├── Step4AREditor.jsx      # Tùy chỉnh thông điệp
+│   │   ├── Step5Summary.jsx       # Tổng kết & giá
+│   │   ├── CartIcon.jsx           # Icon giỏ hàng
+│   │   ├── CartModal.jsx          # Modal giỏ hàng
+│   │   ├── CheckoutModal.jsx      # Thanh toán + QR
+│   │   ├── ARRoute.jsx            # AR experience route
+│   │   └── ARViewer.jsx           # MindAR viewer
+│   ├── store/
+│   │   ├── DesignContext.jsx      # Context thiết kế
+│   │   ├── CartContext.jsx        # Context giỏ hàng
+│   │   ├── designReducer.js       # Reducer thiết kế
+│   │   └── draftService.js        # Auto-save draft
+│   ├── data/
+│   │   └── arEffects.js           # Danh sách hiệu ứng AR
+│   └── utils/
+│       ├── fileUtils.js           # Validate file
+│       ├── imageUtils.js          # Xử lý ảnh
+│       └── ar-effects.js          # Custom A-Frame components
+└── functions/
+    └── api/
+        └── orders.js              # Cloudflare API (lưu/truy xuất đơn hàng)
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🔧 Cài đặt & Chạy
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# Cài đặt dependencies
+npm install
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Chạy development server (với HTTPS cho AR)
+npm run dev
+
+# Build production
+npm run build
+
+# Preview production build
+npm run preview
 ```
+
+## 📱 Trải nghiệm AR
+
+1. Thiết kế khung ảnh tại `/design`
+2. Thêm vào giỏ hàng và thanh toán
+3. Nhận mã QR (in sẵn sau khung)
+4. Quét mã QR bằng điện thoại → mở `/ar?orderId=...`
+5. Hướng camera vào khung ảnh → hiệu ứng AR kích hoạt
+
+> **Lưu ý:** Trình duyệt Zalo thường chặn camera. Hãy mở link bằng Chrome/Safari.
+
+---
+
+© 2026 MoryTory. Thủ công tại Việt Nam.

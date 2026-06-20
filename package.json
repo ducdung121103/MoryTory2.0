@@ -1,8 +1,14 @@
 {
-  "name": "morytory-ar",
+  "name": "morytory-2.0",
   "private": true,
-  "version": "0.0.0",
+  "version": "2.0.0",
   "type": "module",
+  "description": "MoryTory 2.0 — Khung ảnh gỗ thủ công tích hợp AR. Thiết kế khung ảnh gỗ riêng theo từng kỷ niệm, quét để xem ảnh sống động.",
+  "author": "MoryTory",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",

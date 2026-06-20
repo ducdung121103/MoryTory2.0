@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, ChevronUp, ChevronDown } from 'lucide-react';
+import { ArrowLeft, ChevronUp, ChevronDown, Leaf } from 'lucide-react';
 import LeftColumnPreview from './LeftColumnPreview';
 import Step1Upload from './Step1Upload';
 import Step2FrameSize from './Step2FrameSize';
@@ -10,6 +10,7 @@ import Step5Summary from './Step5Summary';
 import { useDesign, useDesignDispatch } from '../store/DesignContext';
 import { useCartDispatch } from '../store/CartContext';
 import { loadDraft, clearDraft } from '../store/draftService';
+import { useToast } from '../store/ToastContext';
 
 export default function DesignPage() {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ export default function DesignPage() {
   const { selectedAREffect, photoPreviewUrl, overlay, frameSize, pricing, photo } = useDesign();
   const designDispatch = useDesignDispatch();
   const cartDispatch = useCartDispatch();
+  const toast = useToast();
 
   useEffect(() => {
     loadDraft().then(draft => {
@@ -36,7 +38,7 @@ export default function DesignPage() {
 
   const handleAddToCart = async () => {
     if (!photoPreviewUrl) {
-      alert("Vui lòng tải ảnh lên trước!");
+      toast.warning("Vui lòng tải ảnh lên trước!");
       return;
     }
     const newItem = {
@@ -55,18 +57,21 @@ export default function DesignPage() {
   };
 
   return (
-    <div className="min-h-screen bg-brand-bg text-brand-text font-sans flex flex-col md:flex-row">
+    <div className="min-h-screen bg-cream text-ink font-sans flex flex-col md:flex-row">
       {/* Mobile Header with Back Button */}
-      <div className="md:hidden flex items-center p-4 bg-white border-b border-brand-wood/20 sticky top-0 z-40">
-        <button onClick={() => navigate('/')} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
-          <ArrowLeft className="w-5 h-5 text-brand-text" />
+      <div className="md:hidden flex items-center p-4 bg-card border-b border-line sticky top-0 z-40">
+        <button onClick={() => navigate('/')} className="p-2 hover:bg-cream-deep rounded-full transition-colors">
+          <ArrowLeft className="w-5 h-5 text-ink" />
         </button>
-        <span className="ml-2 font-serif font-bold text-brand-wood text-lg">Studio MoryTory</span>
+        <span className="ml-2 font-serif font-bold text-walnut text-lg">
+          <Leaf className="h-4 w-4 inline mr-1" />
+          Studio MoryTory
+        </span>
       </div>
 
       {/* Left Column (Preview) */}
       <div 
-        className={`md:w-1/2 md:sticky md:top-0 md:h-screen flex flex-col bg-brand-bg transition-all duration-300 ease-in-out ${
+        className={`md:w-1/2 md:sticky md:top-0 md:h-screen flex flex-col bg-paper transition-all duration-300 ease-in-out ${
           isPreviewCollapsed ? 'h-24 overflow-hidden' : 'h-[40vh] md:h-auto'
         }`}
       >
@@ -74,7 +79,7 @@ export default function DesignPage() {
           {/* Desktop Back Button */}
           <button 
             onClick={() => navigate('/')} 
-            className="hidden md:flex absolute top-6 left-6 items-center gap-2 text-gray-500 hover:text-brand-text transition-colors z-10"
+            className="hidden md:flex absolute top-6 left-6 items-center gap-2 text-ink-muted hover:text-ink transition-colors z-10"
           >
             <ArrowLeft className="w-5 h-5" />
             <span>Quay lại Trang chủ</span>
@@ -85,7 +90,7 @@ export default function DesignPage() {
         
         {/* Mobile Collapse Toggle */}
         <button 
-          className="md:hidden flex items-center justify-center py-2 bg-white border-t border-brand-wood/10 text-gray-500 hover:text-brand-wood shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20"
+          className="md:hidden flex items-center justify-center py-2 bg-card border-t border-line text-ink-muted hover:text-walnut shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20"
           onClick={() => setIsPreviewCollapsed(!isPreviewCollapsed)}
         >
           {isPreviewCollapsed ? (
@@ -97,19 +102,19 @@ export default function DesignPage() {
       </div>
 
       {/* Right Column (Control Panel) */}
-      <div className="md:w-1/2 flex-1 overflow-y-auto bg-white shadow-[-10px_0_20px_-10px_rgba(0,0,0,0.05)] pb-32 md:pb-0">
+      <div className="md:w-1/2 flex-1 overflow-y-auto bg-card shadow-[-10px_0_20px_-10px_rgba(0,0,0,0.05)] pb-32 md:pb-0">
         <div className="max-w-xl mx-auto p-6 md:p-12 space-y-10">
           <div>
-            <h2 className="text-3xl font-serif font-bold text-brand-text mb-2">Thiết Kế Khung Ảnh</h2>
-            <p className="text-gray-500">Tùy chỉnh khung ảnh gỗ và lưu giữ kỷ niệm của bạn.</p>
+            <h2 className="text-3xl font-serif font-bold text-ink mb-2">Thiết Kế Khung Ảnh</h2>
+            <p className="text-ink-muted">Tùy chỉnh khung ảnh gỗ và lưu giữ kỷ niệm của bạn.</p>
           </div>
           
           {draftExists && (
-            <div className="bg-blue-50 border border-blue-200 p-4 rounded-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 animate-in fade-in slide-in-from-top-4">
-              <span className="text-sm text-blue-800 font-medium">Bạn có một bản thiết kế đang làm dở.</span>
+            <div className="bg-sage/10 border border-sage/30 p-4 rounded-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 animate-in fade-in slide-in-from-top-4">
+              <span className="text-sm text-sage-deep font-medium">Bạn có một bản thiết kế đang làm dở.</span>
               <div className="flex gap-2 w-full md:w-auto">
-                <button onClick={() => { setDraftExists(null); clearDraft(); }} className="flex-1 md:flex-none text-sm text-blue-600 px-4 py-2 hover:bg-blue-100 rounded-lg font-medium transition-colors">Làm mới</button>
-                <button onClick={restoreDraft} className="flex-1 md:flex-none text-sm bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors shadow-sm">Tiếp tục</button>
+                <button onClick={() => { setDraftExists(null); clearDraft(); }} className="flex-1 md:flex-none text-sm text-sage-deep px-4 py-2 hover:bg-sage/10 rounded-lg font-medium transition-colors">Làm mới</button>
+                <button onClick={restoreDraft} className="flex-1 md:flex-none text-sm bg-sage-deep text-white px-4 py-2 rounded-lg font-medium hover:brightness-110 transition-colors shadow-sm">Tiếp tục</button>
               </div>
             </div>
           )}

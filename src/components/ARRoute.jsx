@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { ARViewer } from './ARViewer';
+import { useToast } from '../store/ToastContext';
 
 export default function ARRoute() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [orderData, setOrderData] = useState(null);
+  const toast = useToast();
 
   useEffect(() => {
-    // Check if user is using Zalo browser
+    // Zalo browser warning — use native confirm for critical pre-interaction notice
     if (navigator.userAgent.includes('Zalo')) {
-      alert("LƯU Ý: Trình duyệt của Zalo thường chặn Camera AR.\n\nHãy nhấn vào dấu 3 chấm (Góc trên cùng bên phải) và chọn 'Mở bằng trình duyệt' (Chrome/Safari) để trải nghiệm AR mượt mà nhất nhé!");
+      toast.warning("Trình duyệt Zalo thường chặn Camera AR. Hãy nhấn dấu 3 chấm → 'Mở bằng trình duyệt' (Chrome/Safari).");
     }
 
     const fetchOrder = async () => {
@@ -30,7 +32,7 @@ export default function ARRoute() {
         setOrderData(data);
       } catch (err) {
         console.error(err);
-        alert("Không tìm thấy đơn hàng này trên Server!");
+        toast.error("Không tìm thấy đơn hàng này!");
         navigate('/');
       }
     };
@@ -38,7 +40,14 @@ export default function ARRoute() {
     fetchOrder();
   }, [searchParams, navigate]);
 
-  if (!orderData) return <div className="min-h-screen bg-black flex items-center justify-center text-white">Đang tải AR...</div>;
+  if (!orderData) return (
+    <div className="min-h-screen bg-cream flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-pulse text-walnut font-serif text-2xl mb-2">MoryTory</div>
+        <p className="text-ink-muted">Đang tải trải nghiệm AR...</p>
+      </div>
+    </div>
+  );
 
   return (
     <ARViewer 
@@ -46,6 +55,10 @@ export default function ARRoute() {
       effect={orderData.effect} 
       overlayText={orderData.overlayText}
       overlayFont={orderData.overlayFont}
+      overlayColor={orderData.overlayColor}
+      overlayFontSize={orderData.overlayFontSize}
+      overlayPosX={orderData.overlayPosX}
+      overlayPosY={orderData.overlayPosY}
       onBack={() => navigate('/')} 
     />
   );

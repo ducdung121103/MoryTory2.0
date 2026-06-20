@@ -12,7 +12,7 @@ export default function Step2FrameSize() {
 
   return (
     <div className="space-y-4">
-      <h3 className="text-xl font-semibold text-brand-text">2. Chọn kích thước</h3>
+      <h3 className="text-xl font-semibold text-ink">2. Chọn kích thước</h3>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {SIZES.map((size) => {
@@ -23,17 +23,17 @@ export default function Step2FrameSize() {
               onClick={() => dispatch({ type: 'SET_FRAME_SIZE', payload: size.id })}
               className={`p-4 rounded-xl text-left transition-all duration-300 ease-in-out ${
                 isSelected 
-                  ? 'bg-brand-wood text-white scale-[1.02] shadow-md border-transparent' 
-                  : 'bg-white border border-brand-wood/20 text-brand-text hover:border-brand-wood/50'
+                  ? 'bg-walnut text-cream scale-[1.02] shadow-[var(--shadow-soft)] border-transparent' 
+                  : 'bg-card border border-line text-ink hover:border-walnut/50 hover:shadow-sm'
               }`}
             >
               <div className="font-semibold flex justify-between items-center">
                 <span>{size.label}</span>
-                <span className={`text-sm ${isSelected ? 'text-white' : 'text-brand-wood'}`}>
+                <span className={`text-sm ${isSelected ? 'text-cream/80' : 'text-walnut'}`}>
                   {size.price.toLocaleString('vi-VN')}đ
                 </span>
               </div>
-              <div className={`text-sm mt-1 ${isSelected ? 'text-white/80' : 'text-gray-500'}`}>
+              <div className={`text-sm mt-1 ${isSelected ? 'text-cream/60' : 'text-ink-muted'}`}>
                 {size.desc}
               </div>
             </button>

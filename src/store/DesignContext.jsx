@@ -1,4 +1,4 @@
-import { createContext, useReducer, useContext, useEffect } from 'react';
+import { createContext, useReducer, useContext, useEffect, useRef } from 'react';
 import { initialState, designReducer } from './designReducer';
 import { saveDraft } from './draftService';
 
@@ -7,13 +7,27 @@ const DesignDispatchContext = createContext(null);
 
 export function DesignProvider({ children }) {
   const [state, dispatch] = useReducer(designReducer, initialState);
+  const timerRef = useRef(null);
 
-  // Auto-save draft when state changes
+  // Auto-save draft with 500ms debounce
   useEffect(() => {
-    // We only save if there is at least a photo uploaded
-    if (state.photo) {
-      saveDraft(state);
+    if (!state.photo) return;
+
+    // Clear previous timer
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
     }
+
+    // Set new debounced save
+    timerRef.current = setTimeout(() => {
+      saveDraft(state);
+    }, 500);
+
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
   }, [state]);
 
   return (

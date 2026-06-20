@@ -24,7 +24,6 @@ export default function Step1Upload() {
 
     setError('');
     
-    // Cleanup previous URL if any
     if (photoPreviewUrl) {
       revokePreviewUrl(photoPreviewUrl);
     }
@@ -35,12 +34,11 @@ export default function Step1Upload() {
 
   return (
     <div className="space-y-4">
-      <h3 className="text-xl font-semibold text-brand-text">1. Tải ảnh lên</h3>
-      <p className="text-sm text-gray-500">Bức ảnh này sẽ được dùng để quét AR (Bắt buộc).</p>
+      <h3 className="text-xl font-semibold text-ink">1. Tải ảnh lên</h3>
+      <p className="text-sm text-ink-muted">Bức ảnh này sẽ được dùng để quét AR (Bắt buộc).</p>
 
-      {/* Upload Box */}
       <div className="space-y-2">
-        <div className="border-2 border-dashed border-brand-wood/30 rounded-xl p-8 text-center hover:bg-brand-wood/5 transition-colors cursor-pointer relative group bg-white">
+        <div className="border-2 border-dashed border-walnut/30 rounded-xl p-8 text-center hover:bg-walnut/5 transition-colors cursor-pointer relative group bg-card">
           <input 
             type="file" 
             accept="image/jpeg, image/png, image/webp" 
@@ -48,27 +46,26 @@ export default function Step1Upload() {
             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
           />
           <div className="flex flex-col items-center justify-center space-y-3 pointer-events-none">
-            <div className="p-3 bg-[#FAF7F2] rounded-full shadow-sm text-brand-wood group-hover:scale-110 transition-transform">
+            <div className="p-3 bg-cream rounded-full shadow-sm text-walnut group-hover:scale-110 transition-transform">
               <UploadCloud className="w-6 h-6" />
             </div>
             <div className="text-sm">
-              <span className="font-semibold text-brand-wood">Nhấp để tải ảnh lên</span> hoặc kéo thả vào đây
+              <span className="font-semibold text-walnut">Nhấp để tải ảnh lên</span> hoặc kéo thả vào đây
             </div>
-            <div className="text-xs text-gray-400">Định dạng JPG, PNG, WebP tối đa 10MB</div>
+            <div className="text-xs text-ink-muted">Định dạng JPG, PNG, WebP tối đa 10MB</div>
           </div>
         </div>
         {error && <div className="text-red-500 text-sm mt-1">{error}</div>}
       </div>
       
-      {/* Checkbox Toggle */}
-      <label className="flex items-center space-x-3 cursor-pointer p-4 border border-brand-wood/20 rounded-xl bg-[#FAF7F2] hover:bg-brand-wood/5 transition-colors mt-4">
+      <label className="flex items-center space-x-3 cursor-pointer p-4 border border-line rounded-xl bg-cream hover:bg-cream-deep transition-colors mt-4">
         <input 
           type="checkbox"
           checked={isPrintingPhoto}
           onChange={(e) => handleToggle(e.target.checked)}
-          className="w-5 h-5 accent-brand-accent-green cursor-pointer"
+          className="w-5 h-5 accent-sage-deep cursor-pointer"
         />
-        <span className="text-brand-text font-medium select-none">
+        <span className="text-ink font-medium select-none">
           MoryTory hỗ trợ in ảnh này dán sẵn lên khung giúp bạn (+0đ)
         </span>
       </label>

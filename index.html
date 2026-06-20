@@ -1,15 +1,38 @@
 <!doctype html>
-<html lang="en">
+<html lang="vi">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MoryTory - Khung Ảnh Gỗ 3D Tích Hợp AR</title>
-    <!-- A-Frame and MindAR -->
-    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
+    
+    <!-- Primary Meta Tags -->
+    <title>MoryTory — Khung ảnh gỗ thủ công, sống lại bằng AR</title>
+    <meta name="description" content="Khung ảnh gỗ thủ công của MoryTory lưu giữ khoảnh khắc gia đình và sống lại bằng hiệu ứng AR khi bạn quét bằng điện thoại." />
+    <meta name="author" content="MoryTory" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="MoryTory — Khung ảnh gỗ tích hợp AR" />
+    <meta property="og:description" content="Thiết kế khung ảnh gỗ riêng theo từng kỷ niệm — quét khung để xem ảnh sống với hiệu ứng tuyết rơi, hoa rơi, lấp lánh." />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="MoryTory — Khung ảnh gỗ tích hợp AR" />
+    <meta name="twitter:description" content="Thiết kế khung ảnh gỗ riêng theo từng kỷ niệm — quét khung để xem ảnh sống với hiệu ứng tuyết rơi, hoa rơi, lấp lánh." />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Dancing+Script:wght@500;600;700&display=swap" />
+    
+    <!-- Google Identity Services (for login) -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <!-- A-Frame and MindAR (version synced with package.json: mind-ar 1.2.5, aframe 1.7.1) -->
+    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-particle-system-component@1.2.0/dist/aframe-particle-system-component.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image.prod.js"></script>
   </head>
   <body>
     <div id="root"></div>
